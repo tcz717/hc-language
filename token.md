@@ -50,6 +50,10 @@
 - (
 - )
 - ;
+- ，
+
+## Commit token
+- //.*
 
 ## Macro token
 - \#[_a-zA-Z][_a-zA-Z0-9]*
