@@ -1,6 +1,6 @@
 ## hc Language
 ---
-This is a c-style language used for `Human Resourse Machine`. 
+This is a c-style language used for `Human Resource Machine`. 
 
 And this project is a compiler for hc.
 
@@ -16,7 +16,7 @@ loop:main
 	var in@0=inbox();
 	for(i=size;i!=0;i--)
 	{
-		if(in==data[i])
+		if(in==[i])
 		{
 			coninue:main;
 		}
@@ -25,7 +25,7 @@ loop:main
 	size++;
 }
 ```
-It will convert to `Human Resourse Machine`'s Language like following:
+It will be converted to `Human Resource Machine`'s Language like following:
 ```
 -- HUMAN RESOURCE MACHINE PROGRAM --
 
