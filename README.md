@@ -2,6 +2,8 @@
 ---
 This is a c-style language used for `Human Resource Machine`. 
 
+[Human Resource Machine's steam page](http://store.steampowered.com/app/375820)
+
 And this project is a compiler for hc.
 
 Example:
