@@ -41,7 +41,7 @@
 %type <NExpression> func_decl_args
 %type <NExpression> call_args
 %type <NBlock> program stmts block
-%type <NStatement> stmt var_decl func_decl
+%type <NStatement> stmt var_decl
 %type <NExpression > comparison
 
 /* Operator precedence for mathematical operators */
@@ -70,10 +70,6 @@ block : TLBRACE stmts TRBRACE { $$ = $2; }
 var_decl : ident ident { $$ = new NVariableDeclaration(*$1, *$2); }
          | ident ident TEQUAL expr { $$ = new NVariableDeclaration(*$1, *$2, $4); }
          ;
-
-func_decl : ident ident TLPAREN func_decl_args TRPAREN block
-            { $$ = new NFunctionDeclaration(*$1, *$2, *$4, *$6); delete $4; }
-          ;
 
 func_decl_args : /*blank*/  { $$ = new VariableList(); }
           | var_decl { $$ = new VariableList(); $$->push_back($1); }

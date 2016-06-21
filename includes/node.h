@@ -82,14 +82,3 @@ public:
     NVariableDeclaration(const NIdentifier& type, NIdentifier& id, NExpression *assignmentExpr) :
         type(type), id(id), assignmentExpr(assignmentExpr) { }
 };
- 
-class NFunctionDeclaration : public NStatement {
-public:
-    const NIdentifier& type;
-    const NIdentifier& id;
-    VariableList arguments;
-    NBlock& block;
-    NFunctionDeclaration(const NIdentifier& type, const NIdentifier& id,
-            const VariableList& arguments, NBlock& block) :
-        type(type), id(id), arguments(arguments), block(block) { }
-};
