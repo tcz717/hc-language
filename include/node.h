@@ -44,11 +44,11 @@ public:
  
 class NBinaryOperator : public NExpression {
 public:
-    int op;
     NExpression& lhs;
+    int op;
     NExpression& rhs;
     NBinaryOperator(NExpression& lhs, int op, NExpression& rhs) :
-        lhs(lhs), rhs(rhs), op(op) { }
+        lhs(lhs), op(op), rhs(rhs) { }
 };
  
 class NAssignment : public NExpression {
@@ -59,7 +59,7 @@ public:
         lhs(lhs), rhs(rhs) { }
 };
  
-class NBlock : public NExpression {
+class NBlock : public NStatement {
 public:
     StatementList statements;
     NBlock() { }
@@ -74,11 +74,20 @@ public:
  
 class NVariableDeclaration : public NStatement {
 public:
-    const NIdentifier& type;
     NIdentifier& id;
+    int position;
     NExpression *assignmentExpr;
-    NVariableDeclaration(const NIdentifier& type, NIdentifier& id) :
-        type(type), id(id) { }
-    NVariableDeclaration(const NIdentifier& type, NIdentifier& id, NExpression *assignmentExpr) :
-        type(type), id(id), assignmentExpr(assignmentExpr) { }
+
+    //ident ident
+    NVariableDeclaration(NIdentifier& id) :
+        id(id), position(-1) { }
+    NVariableDeclaration(NIdentifier& id, int pos) :
+        id(id), position(pos) { }
+    NVariableDeclaration(NIdentifier& id, NExpression *assignmentExpr) :
+        id(id), assignmentExpr(assignmentExpr)
+        { 
+            position=-1;
+        }
+    NVariableDeclaration(NIdentifier& id, int pos, NExpression *assignmentExpr) :
+        id(id), position(pos), assignmentExpr(assignmentExpr) { }
 };
