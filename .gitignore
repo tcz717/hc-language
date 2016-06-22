@@ -1,2 +1,7 @@
-out/*
+bin/*
+obj/*
 .vscode/*
+
+src/hc.cpp
+src/parser.cpp
+include/parser.hpp
