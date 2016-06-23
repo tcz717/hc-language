@@ -59,7 +59,8 @@ stmts : stmt { $$ = new NBlock(); $$->statements.push_back($1); }
       | stmts stmt { $1->statements.push_back($2); }
       ;
 
-stmt : var_decl TSEMICOLON
+stmt : TSEMICOLON { $$ = new NStatement(); }
+     | var_decl TSEMICOLON
      | expr TSEMICOLON { $$ = new NExpressionStatement(*$1); }
      | block
      | loop
