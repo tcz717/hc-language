@@ -7,7 +7,7 @@
 #define TOKEN(t) (yylval.token = t)
 %}
 
-%option noyywrap
+%option noyywrap nounput
 
 %%
 
@@ -18,7 +18,7 @@
 
 [_a-zA-Z][_a-zA-Z0-9]*  SAVE_TOKEN; return TIDENTIFIER;
 #[0-9]+                 SAVE_TOKEN; return TREGISTER;
-[1-9][0-9]+|0      SAVE_TOKEN; return TINTEGER;
+[1-9][0-9]*|0      SAVE_TOKEN; return TINTEGER;
  "="					return TOKEN(TEQUAL); 
 "=="			      	return TOKEN(TCEQ); 
 "!="			  		return TOKEN(TCNE); 
@@ -38,6 +38,7 @@
  
 "+"				  		return TOKEN(TPLUS); 
 "-"		        		return TOKEN(TMINUS); 
+"@"		        		return TOKEN(TAT); 
  
 .                       printf("Unknown token!\n"); yyterminate(); 
 

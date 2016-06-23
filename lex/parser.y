@@ -28,11 +28,12 @@
    match our tokens.l lex file. We also define the node type
    they represent.
  */
-%token <string>  TIDENTIFIER TINTEGER TREGISTER
+%token <string> TIDENTIFIER TINTEGER TREGISTER
 %token <token> TCEQ TCNE TCLT TCLE TCGT TCGE TEQUAL
-%token <token> TLPAREN TRPAREN TLBRACE TRBRACE TCOMMA TSEMICOLON
+%token <token> TLPAREN TRPAREN TLBRACE TRBRACE TCOMMA TSEMICOLON 
 %token <token> TPLUS TMINUS
 %token <token> TVAR TPRE
+%token <token> TAT
 
 /* Define the type of node our nonterminal symbols represent.
    The types refer to the %union declaration above. Ex: when
