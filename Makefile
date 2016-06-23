@@ -7,10 +7,8 @@ DIR_TEST = ./test
 DIR_OUT = ./bin
 DIR_H = ./include
 
-FLEX_INCLUDE = "C:\GnuWin32\include"
-
 CC = g++
-CPPFLAGS = -Wall -std=gnu++0x -I$(DIR_H) -I$(FLEX_INCLUDE) -g
+CPPFLAGS = -Wall -std=gnu++0x -I$(DIR_H) -g
 LDFLAGS = -lpthread -static 
 
 SRC = $(wildcard ${DIR_SRC}/*.c)  
@@ -21,8 +19,8 @@ $(DIR_SRC)/hc.cpp : $(DIR_LEX)/hc.flex $(DIR_H)/parser.hpp
 
 $(DIR_H)/parser.hpp : $(DIR_SRC)/parser.cpp
 
-$(DIR_SRC)/parser.cpp : $(DIR_LEX)/parser.y
-	bison --defines=$(DIR_H)/parser.hpp -o $@ $^
+$(DIR_SRC)/parser.cpp : $(DIR_LEX)/parser.y $(DIR_H)/node.h
+	bison --defines=$(DIR_H)/parser.hpp -o $@ $<
 
 $(DIR_OBJ)/%.o : $(DIR_SRC)/%.cpp
 	$(CC) -c $(CPPFLAGS) -o $@ $<
@@ -33,7 +31,10 @@ hcc : $(OBJS)
 lextest : $(OBJS) $(DIR_TEST)/lex_test.cpp
 	$(CC) -o $(DIR_OUT)/$@ $^ $(LDFLAGS) $(CPPFLAGS)
 
-cleanauto:
+cleanauto :
 	$(RM) $(DIR_SRC)/lex.cpp $(DIR_SRC)/parser.cpp
+
+clean : cleanauto
+	$(RM) $(OBJS)
 
 .PHONY : all clean cleanauto
