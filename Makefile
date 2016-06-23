@@ -31,6 +31,9 @@ hcc : $(OBJS)
 lextest : $(OBJS) $(DIR_TEST)/lex_test.cpp
 	$(CC) -o $(DIR_OUT)/$@ $^ $(LDFLAGS) $(CPPFLAGS)
 
+parser.report : $(DIR_LEX)/parser.y $(DIR_H)/node.h
+	bison --defines=$(DIR_H)/parser.hpp -o $(DIR_SRC)/parser.cpp $< -v --report=look-ahead
+
 cleanauto :
 	$(RM) $(DIR_SRC)/lex.cpp $(DIR_SRC)/parser.cpp
 

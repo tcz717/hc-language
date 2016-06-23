@@ -5,3 +5,4 @@ obj/*
 src/hc.cpp
 src/parser.cpp
 include/parser.hpp
+*.output
