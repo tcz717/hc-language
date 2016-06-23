@@ -33,9 +33,8 @@
 %right <token> TEQUAL
 %nonassoc <token> TCEQ TCNE TCLT TCLE TCGT TCGE
 %left <token> TPLUS TMINUS
-%token <token> TLPAREN TRPAREN TLBRACE TRBRACE TSEMICOLON 
-%token <token> TVAR TPRE
-%token <token> TAT
+%token <token> TLPAREN TRPAREN TLBRACE TRBRACE TSEMICOLON TCOLON TAT
+%token <token> TVAR TPRE TLOOP
 
 /* Define the type of node our nonterminal symbols represent.
    The types refer to the %union declaration above. Ex: when
@@ -46,7 +45,7 @@
 %type <expr> numeric expr atom term
 %type <exprvec> call_args
 %type <block> program stmts 
-%type <stmt> stmt var_decl block
+%type <stmt> stmt var_decl block loop
 %type <token> campare_op math2_op
 
 %start program
@@ -63,16 +62,21 @@ stmts : stmt { $$ = new NBlock(); $$->statements.push_back($1); }
 stmt : var_decl TSEMICOLON
      | expr TSEMICOLON { $$ = new NExpressionStatement(*$1); }
      | block
+     | loop
      ;
 
 block : TLBRACE stmts TRBRACE { $$ = $2; }
       | TLBRACE TRBRACE { $$ = new NBlock(); }
       ;
 
-var_decl : decl ident { $$ = new NVariableDeclaration(*$2); }
-         | decl ident TEQUAL expr { $$ = new NVariableDeclaration(*$2, $4); }
+var_decl : TVAR ident { $$ = new NVariableDeclaration(*$2); }
+         | TVAR ident TAT numeric { $$ = new NVariableDeclaration(*$2, ((NInteger*)$4)->value); }
+         | TVAR ident TEQUAL expr { $$ = new NVariableDeclaration(*$2, $4); }
+         | TVAR ident TAT numeric TEQUAL expr { $$ = new NVariableDeclaration(*$2, ((NInteger*)$4)->value, $6); }
          ;
-decl : TVAR | TPRE
+
+loop : TLOOP stmt { $$ = $2; }
+     | TLOOP TCOLON ident stmt { $$ = $4; }
 
 ident : TIDENTIFIER { $$ = new NIdentifier(*$1); delete $1; }
       ;

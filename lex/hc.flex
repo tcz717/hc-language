@@ -11,14 +11,17 @@
 
 %%
 
-[\n\t]
+[\n\t ]
+\/\/.*
+#[_a-zA-Z][_a-zA-Z0-9]*(\(.*\))?.*
 
 "var"                   return TOKEN(TVAR); 
 "pre"                   return TOKEN(TPRE); 
+"loop"                  return TOKEN(TLOOP); 
 
 [_a-zA-Z][_a-zA-Z0-9]*  SAVE_TOKEN; return TIDENTIFIER;
 #[0-9]+                 SAVE_TOKEN; return TREGISTER;
-[1-9][0-9]*|0      SAVE_TOKEN; return TINTEGER;
+[1-9][0-9]*|0      		SAVE_TOKEN; return TINTEGER;
  "="					return TOKEN(TEQUAL); 
 "=="			      	return TOKEN(TCEQ); 
 "!="			  		return TOKEN(TCNE); 
@@ -34,7 +37,7 @@
 
 ","				  		return TOKEN(TCOMMA); 
 ";"				  		return TOKEN(TSEMICOLON); 
-
+":"				  		return TOKEN(TCOLON); 
  
 "+"				  		return TOKEN(TPLUS); 
 "-"		        		return TOKEN(TMINUS); 
