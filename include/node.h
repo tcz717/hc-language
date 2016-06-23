@@ -163,10 +163,7 @@ public:
     NVariableDeclaration(NIdentifier& id, int pos) :
         id(id), position(pos) { }
     NVariableDeclaration(NIdentifier& id, NExpression *assignmentExpr) :
-        id(id), assignmentExpr(assignmentExpr)
-        { 
-            position=-1;
-        }
+        id(id), position(-1), assignmentExpr(assignmentExpr) { }
     NVariableDeclaration(NIdentifier& id, int pos, NExpression *assignmentExpr) :
         id(id), position(pos), assignmentExpr(assignmentExpr) { }
 };
