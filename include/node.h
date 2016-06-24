@@ -91,14 +91,11 @@ public:
     long long position;
     NExpression *assignmentExpr;
 
-    //ident ident
-    NVariableDeclaration(NIdentifier& id) :
-        id(id), position(-1) { }
-    NVariableDeclaration(NIdentifier& id, int pos) :
-        id(id), position(pos) { }
-    NVariableDeclaration(NIdentifier& id, NExpression *assignmentExpr) :
+    NVariableDeclaration(NIdentifier& id, NExpression *assignmentExpr = NULL) :
         id(id), position(-1), assignmentExpr(assignmentExpr) { }
-    NVariableDeclaration(NIdentifier& id, int pos, NExpression *assignmentExpr) :
+    NVariableDeclaration(NIdentifier& id, int pos, NExpression *assignmentExpr = NULL) :
         id(id), position(pos), assignmentExpr(assignmentExpr) { }
+
+    virtual std::string& ToString(std::string& str);
 };
 #endif

@@ -64,3 +64,19 @@ std::string& NExpressionStatement::ToString(std::string& str)
 {
     return expression.ToString(str);
 }
+std::string& NVariableDeclaration::ToString(std::string& str)
+{
+    std::ostringstream os;
+    str+="var(";
+    this->id.ToString(str);
+    os<<"){\npos:"<<this->position;
+    std::string t=os.str();
+    
+    if(this->assignmentExpr)
+    {
+        t+=",\ninit:";
+        this->assignmentExpr->ToString(t);
+        t+="\n}";
+    }
+    return str+=t;
+}
