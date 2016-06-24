@@ -14,21 +14,21 @@ std::ostream& operator<< (std::ostream &os, Node &it)
 }
 
 
-std::string& Node::ToString(std::string& str)
+std::string& Node::ToString(std::string& str) const
 {
     return str+=std::string("Node");
 }
-std::string& NInteger::ToString(std::string& str)
+std::string& NInteger::ToString(std::string& str) const
 {
     std::ostringstream os;
     os<<value;
     return str+=os.str();
 }
-std::string& NIdentifier::ToString(std::string& str)
+std::string& NIdentifier::ToString(std::string& str) const
 {
     return str+=name;
 }
-std::string& NBinaryOperator::ToString(std::string& str)
+std::string& NBinaryOperator::ToString(std::string& str) const
 {
     std::ostringstream os;
     os<<"op("<<op<<"){\nlhs:";
@@ -39,7 +39,7 @@ std::string& NBinaryOperator::ToString(std::string& str)
     t+="\n}";
     return str+=t;
 }
-std::string& NAssignment::ToString(std::string& str)
+std::string& NAssignment::ToString(std::string& str) const
 {
     str+="assignment:{\nlhs:";
     lhs.ToString(str);
@@ -48,10 +48,10 @@ std::string& NAssignment::ToString(std::string& str)
     str+="\n}";
     return str;
 }
-std::string& NBlock::ToString(std::string& str)
+std::string& NBlock::ToString(std::string& str) const
 {
     str+="block:[\n";
-    StatementList::iterator iter;
+    StatementList::const_iterator iter;
     for(iter=statements.begin();iter!=statements.end();iter++)
     {
         (*iter)->ToString(str);
@@ -60,11 +60,11 @@ std::string& NBlock::ToString(std::string& str)
     str+="]";
     return str;
 }
-std::string& NExpressionStatement::ToString(std::string& str)
+std::string& NExpressionStatement::ToString(std::string& str) const
 {
     return expression.ToString(str);
 }
-std::string& NVariableDeclaration::ToString(std::string& str)
+std::string& NVariableDeclaration::ToString(std::string& str) const
 {
     std::ostringstream os;
     str+="var(";
@@ -76,7 +76,16 @@ std::string& NVariableDeclaration::ToString(std::string& str)
     {
         t+=",\ninit:";
         this->assignmentExpr->ToString(t);
-        t+="\n}";
     }
+    t+="\n}";
     return str+=t;
+}
+std::string& NLoop::ToString(std::string& str) const
+{
+    str+="loop(";
+    if(name)
+        name->ToString(str);
+    str+="):\n";
+    body.ToString(str);
+    return str;
 }

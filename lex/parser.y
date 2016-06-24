@@ -76,8 +76,8 @@ var_decl : TVAR ident { $$ = new NVariableDeclaration(*$2); }
          | TVAR ident TAT numeric TEQUAL expr { $$ = new NVariableDeclaration(*$2, ((NInteger*)$4)->value, $6); }
          ;
 
-loop : TLOOP stmt { $$ = $2; }
-     | TLOOP TCOLON ident stmt { $$ = $4; }
+loop : TLOOP stmt { $$ = new NLoop(*$2); }
+     | TLOOP TCOLON ident stmt { $$ = new NLoop($3 ,*$4) }
 
 ident : TIDENTIFIER { $$ = new NIdentifier(*$1); delete $1; }
       ;
