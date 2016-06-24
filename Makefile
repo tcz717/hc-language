@@ -12,7 +12,7 @@ CPPFLAGS = -Wall -std=gnu++0x -I$(DIR_H) -g
 LDFLAGS = -lpthread -static 
 
 SRC = $(wildcard ${DIR_SRC}/*.c)  
-OBJS = $(DIR_OBJ)/parser.o $(DIR_OBJ)/hc.o
+OBJS = $(DIR_OBJ)/parser.o $(DIR_OBJ)/hc.o $(DIR_OBJ)/tostring.o
 
 $(DIR_SRC)/hc.cpp : $(DIR_LEX)/hc.flex $(DIR_H)/parser.hpp
 	flex -o$@ $<
